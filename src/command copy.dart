@@ -16,27 +16,26 @@ enum Command {
     required List<String> commands,
   }) {
     String prefix = "execute ";
-    List<String> result_list = []; // List of all the commands
+    List<String> result_list = [];
     // execute if entity @s run say hi
     if (as != null) prefix += "as " + Entity.toText(entity: as) + " ";
     if (at != null) prefix += "at " + Entity.toText(entity: at) + " ";
     if (align != null) prefix += "align " + align.name.toLowerCase() + " ";
-    // ===== CONDITIONS =====
-    print('CONDITIONS: ' + condition!.toText());
+    if (condition != null) {
+      for (int i = 0; i < condition.conditions!.length; i++) {
+        prefix += "if " + condition.conditions![i].toString() + " ";
+        if (i != condition.conditions!.length - 1) prefix += "execute ";
+      }
+    }
     prefix += "run ";
-    // ===== CONDITIONS =====
-    // ===== COMMANDS =====
     for (String cmd in commands) {
       result_list.add(prefix + cmd);
     }
-    // ===== COMMANDS =====
-    // ===== EVENTS =====
     for (List<String> event in events!) {
       for (String event_text in event) {
         result_list.add(prefix + event_text);
       }
     }
-    // ===== EVENTS =====
     return result_list;
   }
 

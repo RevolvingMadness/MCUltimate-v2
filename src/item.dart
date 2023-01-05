@@ -6,7 +6,7 @@ class Item {
   NBT? nbt;
   int? count;
 
-  Item({required Items item, NBT? nbt, int? count}) {
+  Item(Items item, {NBT? nbt, int? count}) {
     this.item = Items.toText(item: item);
     this.nbt = nbt;
     this.count = count;
